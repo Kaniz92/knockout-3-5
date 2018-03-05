@@ -1,0 +1,51 @@
+﻿@model OrgEmployee.Models.Enrollment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+    <fieldset>
+        <legend>Enrollment</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Band)
+        </div>
+        <div class="editor-field">
+            <input data-bind="value: Band" />
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DepartmentID, "Department")
+        </div>
+        <div class="editor-field">
+            <select data-bind="options: Departments,   optionsText: 'Title',
+    optionsValue: 'DepartmentID',value: DepartmentID, optionsCaption:'Select a Department...'"></select>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EmployeeID, "Employee")
+        </div>
+        <div class="editor-field">
+            <select data-bind="options: Employees, optionsText: 'LastName',
+    optionsValue: 'EmployeeID',value: EmployeeID, optionsCaption:'Select a Employee...'"></select>
+        </div>
+
+        <p>
+            <button type="button" data-bind="kendoButton: SaveEnrollment">Create</button>
+        </p>
+    </fieldset>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript">
+    var MyNamespace = MyNamespace || {};
+    MyNamespace.Departments = JSON.parse('@Html.Raw(ViewBag.Departments)');
+    MyNamespace.Employees = JSON.parse('@Html.Raw(ViewBag.Employees)');
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/ViewModels/Enrollment/CreateVM.js")
+}
+

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OrgEmployee.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="k-content row home-wallpaper">
+    <br />
+    <h2>Employee Details</h2>
+    <br />
+</div>
+<div class="k-content row center k-inner">
+    <p>
+        <button data-bind="kendoButton: CreateNew">Create New</button>
+
+        <div data-bind="kendoGrid: {data: Employees, rowTemplate: 'rowTmpl', pageable:{pageSize:10},useKOTemplates: true,
+    columns:[{title:'Last Name'},{title:'First Name'},{title:'Joining Date'},{title:'Action'}]
+             }"
+             class="k-content kendo-grid">
+
+        </div>
+        <script id="rowTmpl" type="text/html">
+            <tr>
+                <td data-bind="text: LastName"></td>
+                <td data-bind="text: FirstName"></td>
+                <td data-bind="text: $parent.formatDate(JoiningDate)"></td>
+                <td>
+                    <span data-bind="click:  $parent.EditEmployee.bind($data,EmployeeID)" class="k-icon k-i-edit k-i-pencil"></span> |
+                    <span data-bind="click:  $parent.DeleteEmployee.bind($data,EmployeeID)" class="k-icon k-i-delete k-i-trash"></span>
+                </td>
+
+            </tr>
+        </script>
+        <br />
+        <button data-bind="kendoButton: Back">Back <span class="k-i-undo k-icon"></span></button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Scripts/ViewModels/Employee/IndexVM.js")
+}
